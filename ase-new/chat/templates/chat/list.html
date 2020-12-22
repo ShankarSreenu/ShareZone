@@ -1,0 +1,76 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+.container {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 70px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
+</head>
+<body>
+
+<h2>Last Messages</h2>
+{% for i in form %}
+<div class="container">
+  <img src="{{i.0.profiles.image.url }}" alt="Avatar" style="width:100%;">
+  <a href="{% url 'msgview' userid=i.0.username  %}">{{i.0.username}}</a>
+  {% if i.1.text != None %}
+  <p>{{i.1.from_user}}:{{i.1.text}}</p>
+  <span class="time-right">{{i.1.time}}</span>
+  {% endif %}
+  {% if i.1.text == None %}
+  <p>No messages yet!</p>
+  {% endif %}
+</div>
+{% endfor %}
+
